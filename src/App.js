@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-
+import Register from './pages/Register'
 
 class App extends Component {
 	render() {
@@ -9,7 +9,7 @@ class App extends Component {
 			<div>
 				<Router>
 					<Switch>
-						<Route />
+						<Route path="/register" component={Register} />
 					</Switch>
 				</Router>
 			</div>
