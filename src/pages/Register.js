@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
+import { Redirect, Link } from 'react-router-dom'
 
-class Register extends Component {
+import { Register } from '../services'
+
+class RegisterPage extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			user: {
-				firstName: "test",
-				lastName: "test1",
-				email: "test@example.com",
-				password: "123134",
+			registerSuccess: false,
+			form: {
+				user: {
+					firstName: "test",
+					lastName: "test1",
+					email: "test@example.com",
+					password: "123134",
+				}
 			}
 		}
 	}
 
 	render() {
-		let { firstName, lastName, email, password } = this.state.user
+		let { firstName, lastName, email, password } = this.state.form.user
 		return (
 			<main>
 				<h2>Welcome! Register here.</h2>
@@ -46,22 +52,30 @@ class Register extends Component {
 					/>
 					<button onSubmit={this.onSubmit}>Register</button>
 				</form>
+				{this.state.registerSuccess && <Redirect to="#" />}
 			</main>
 		)
 	}
 
 	onChange = (e) => {
-		let { user } = this.state
+		let { form } = this.state
 
-		user[e.target.name] = e.target.value
+		form.user[e.target.name] = e.target.value
 
-		this.setState({ user })
+		this.setState({ form })
 	}
 
 	onSubmit = (e) => {
 		e.preventDefault()
-		console.log(this.state);
+
+		Register(this.state.form)
+		.then(json => {
+			console.log("Got to second then:", json);
+			this.setState({
+				registerSuccess: true
+			})
+		})
 	}
 }
 
-export default Register
+export default RegisterPage
