@@ -2,7 +2,7 @@ import decode from 'jwt-decode'
 
 export default class AuthService {
 	constructor(domain) {
-		this.domain = domain || 'http://localhost:3001'
+		this.domain = domain || 'http://localhost:3000'
 		this.fetch = this.fetch.bind(this)
 		this.getUserId = this.getUserId.bind(this)
 	}
@@ -24,6 +24,7 @@ export default class AuthService {
 			body: JSON.stringify(user),
 		})
 		.then(res => {
+			console.log("in register..", res);
 			this.setToken(res.jti)
 			return res
 		})
@@ -83,7 +84,10 @@ export default class AuthService {
 			...options
 		})
 		.then(this._checkStatus)
-		.then(response => response.json())
+		.then(response => {
+			console.log("fetch", response);
+			return response.json();
+		})
 		.catch(err => {
 			console.log("::: FETCH ERROR CAUGHT:::", err)
 			return err

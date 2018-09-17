@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Register from './pages/Register'
+import Register from './pages/Register';
+import User from './pages/User';
+import Home from './pages/Home';
 
 class App extends Component {
 	render() {
@@ -9,7 +11,9 @@ class App extends Component {
 			<div>
 				<Router>
 					<Switch>
-						<Route path="/register" component={Register} />
+						<Route exact path="/register" component={Register} />
+						<Route exact path="/user" component={User} />
+						<Route exact path="/" component={Home} />
 					</Switch>
 				</Router>
 			</div>
